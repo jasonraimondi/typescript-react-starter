@@ -1,9 +1,10 @@
 {
-  "name": "@jmondi/typescript-react-starter",
+  "name": "@jmondi/webpack-starter",
   "description": "Typescript Webpack Starter Pack",
   "scripts": {
     "test": "jest",
     "clean": "rm -rf dist/*",
+    "serve": "cross-env TS_NODE_PROJECT=tsconfig.webpack.json ENV=webpack webpack-dev-server --config build/webpack.conf.ts",
     "dev": "run-s clean build:dev",
     "prod": "run-s clean build:prod",
     "build:dev": "cross-env TS_NODE_PROJECT=tsconfig.webpack.json webpack --config build/webpack.conf.ts",
@@ -12,7 +13,12 @@
   },
   "dependencies": {
     "enzyme": "^3.4.4",
-    "react": "^16.4.2"
+    "react": "^16.4.2",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.3.1",
+    "redux": "^4.0.1",
+    "redux-saga": "^0.16.2",
+    "typesafe-react-router": "^2.0.0"
   },
   "devDependencies": {
     "@types/enzyme": "^3.1.13",
@@ -21,9 +27,10 @@
     "@types/react": "^16.4.11",
     "@types/react-dom": "^16.0.7",
     "@types/webpack": "^4.4.10",
+    "chai": "^4.2.0",
     "cross-env": "^5.2.0",
     "css-loader": "^0.28.11",
-    "enzyme-adapter-react-16": "^1.2.0",
+    "enzyme-adapter-react-16": "^1.6.0",
     "file-loader": "^2.0.0",
     "html-webpack-plugin": "^3.2.0",
     "jest": "^23.5.0",
@@ -31,10 +38,9 @@
     "npm-run-all": "^4.1.3",
     "optimize-css-assets-webpack-plugin": "^4.0.3",
     "postcss-cssnext": "^3.1.0",
-    "postcss-easy-import": "^3.0.0",
-    "postcss-import": "^12.0.0",
     "postcss-loader": "^2.1.6",
-    "react-dom": "^16.4.2",
+    "react-dom": "^16.5.2",
+    "redux-mock-store": "^1.5.3",
     "style-loader": "^0.21.0",
     "ts-jest": "^23.1.4",
     "ts-loader": "^4.5.0",
@@ -42,6 +48,29 @@
     "tslint": "^5.11.0",
     "typescript": "^3.0.1",
     "webpack": "^4.16.5",
-    "webpack-cli": "^3.1.0"
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.9"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "parser": "typescript"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "setupFiles": [
+      "<rootDir>/test/setupTests.ts"
+    ]
   }
 }

@@ -1,42 +1,29 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
+import { Link, Redirect, Route, Switch, withRouter } from 'react-router-dom';
+import { Routes } from '../routes';
+import Sample from './Sample';
+import { SamplePage } from './SamplePage';
 
-import './App.pcss';
-
-interface IProps {
-  version: number;
+class App extends React.Component {
+   public render() {
+      return (
+         <main>
+            <ul>
+               <li>
+                  <Link to={Routes.SAMPLE.create({})}>Home</Link>
+               </li>
+               <li>
+                  <Link to={Routes.SAMPLE_SHOW.create({ id: 'foo-bar' })}>Page</Link>
+               </li>
+            </ul>
+            <Switch>
+               <Route exact path={Routes.SAMPLE.template()} component={Sample}/>
+               <Route exact path={Routes.SAMPLE_SHOW.template()} component={SamplePage}/>
+            </Switch>
+         </main>
+      );
+   }
 }
 
-interface IState {
-  yourName: string;
-}
-
-export class App extends React.Component<IProps, IState> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      yourName: '',
-    };
-  }
-
-  private get yourName(): string {
-    return this.state.yourName === '' ? 'Unknown Name' : this.state.yourName;
-  }
-
-  public render() {
-    return (
-      <div className='app'>
-        <p className='your-name'>Your Name: {this.yourName}</p>
-        <label>
-          Enter Your Name:
-          <input type='text'
-                 placeholder='Enter Your Name'
-                 onChange={(e) => this.setState({ yourName: e.target.value })}
-          />
-        </label>
-        <p>
-          <small className='version'>Version: {this.props.version}</small>
-        </p>
-      </div>
-    );
-  }
-}
+export default withRouter(App);
